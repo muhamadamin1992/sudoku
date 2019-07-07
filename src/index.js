@@ -36,16 +36,26 @@ module.exports = function solveSudoku(matrix) {
   		return;
   	}
 
+  	if ( spots.length === 0 ) {
+  		solved = true;
+  		return;
+  	}
+
   	newSpots = spots.slice( 1 );
 
   	for ( i = 1; i <= length; i++ ) {
 
-  		if ( solved ) {
-  			return;
-  		}
+	  	if ( solved ) {
+	  		return;
+	  	}
 
   		solve( newSpots, i );
   	}
+
+  	if ( solved === false ) {
+  		matrix[y][x] = 0;
+  	}
+
   };
 
   let checkRow = ( x, val ) => {
@@ -59,12 +69,12 @@ module.exports = function solveSudoku(matrix) {
   let checkSub = ( x, y, val ) => {
   	let startX = startPos( x ),
   			startY = startPos( y ),
-  			endX,
-  			endY;
+  			endX = startX + 3,
+  			endY = startY + 3;
 
-  	for ( endY = startY + 3; startY <= endY; startY++ ) {
+  	for ( ; startY < endY; startY++ ) {
 
-  		for ( endX = startX + 3; startX <= endX; startX++ ) {
+  		for ( ; startX < endX; startX++ ) {
   			
   			if ( matrix[startY][startX] === val ) {
   				return false;
@@ -84,11 +94,11 @@ module.exports = function solveSudoku(matrix) {
   		case 3:
   		case 4:
   		case 5:
-  			return 4;
+  			return 3;
   		case 6:
   		case 7:
   		case 8:
-  			return 8;
+  			return 6;
   	}
   };
 
