@@ -67,14 +67,10 @@ module.exports = function solveSudoku(matrix) {
   }
 
   let checkSub = ( x, y, val ) => {
-  	let startX = startPos( x ),
-  			startY = startPos( y ),
-  			endX = startX + 3,
-  			endY = startY + 3;
 
-  	for ( ; startY < endY; startY++ ) {
+  	for ( let startY = startPos( y ), endY = startY + 3; startY < endY; startY++ ) {
 
-  		for ( ; startX < endX; startX++ ) {
+  		for ( let startX = startPos( x ), endX = startX + 3; startX < endX; startX++ ) {
   			
   			if ( matrix[startY][startX] === val ) {
   				return false;
